@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KH VIDEO DOWNLOADER</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#081426;color:white;
+ font-family:Arial,sans-serif;padding:22px 16px;
+}
+.app{max-width:480px;margin:auto}
+.logo{text-align:center;padding:25px 0}
+.logo-icon{font-size:55px}
+h1{font-size:25px;color:#36d5ff;margin:8px 0}
+.sub{color:#9aabc1;font-size:13px}
+.card{
+ background:#14243b;border:1px solid #263d59;
+ border-radius:18px;padding:20px;margin-bottom:17px;
+}
+h3{font-size:16px}
+.platforms{
+ display:grid;grid-template-columns:repeat(4,1fr);gap:9px;
+}
+.platform{
+ background:#203650;border:1px solid #36506c;
+ border-radius:12px;padding:13px 3px;color:white;
+ text-align:center;font-size:12px;cursor:pointer;
+}
+.platform.active{border:2px solid #31d5ff;background:#124563}
+.platform span{display:block;font-size:23px;margin-bottom:6px}
+input{
+ width:100%;padding:16px;border-radius:12px;
+ border:1px solid #52657d;background:#081426;
+ color:white;font-size:14px;margin:10px 0;
+}
+button{
+ width:100%;padding:16px;border:0;border-radius:12px;
+ background:linear-gradient(90deg,#087cf5,#20d3e9);
+ color:white;font-weight:bold;font-size:16px;
+ cursor:pointer;
+}
+button:disabled{opacity:.5}
+#message{font-size:13px;line-height:1.7;color:#b8d8ed;margin-top:14px}
+.note{font-size:12px;color:#9aabc1;line-height:1.7}
+.footer{text-align:center;color:#71859f;font-size:12px;padding:20px}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="logo">
+<div class="logo-icon">📥</div>
+<h1>KH VIDEO DOWNLOADER</h1>
+<div class="sub">YOUR VIDEO & MEDIA CENTER</div>
+</div>
+
+<div class="card">
+<h3>🌐 ជ្រើសរើសកម្មវិធី</h3>
+<div class="platforms">
+<div class="platform active" onclick="choose(this,'Facebook')"><span>📘</span>Facebook</div>
+<div class="platform" onclick="choose(this,'TikTok')"><span>🎵</span>TikTok</div>
+<div class="platform" onclick="choose(this,'YouTube')"><span>▶️</span>YouTube</div>
+<div class="platform" onclick="choose(this,'Telegram')"><span>✈️</span>Telegram</div>
+<div class="platform" onclick="choose(this,'Netflix')"><span>🎬</span>Netflix</div>
+<div class="platform" onclick="choose(this,'WeTV')"><span>📺</span>WeTV</div>
+<div class="platform" onclick="choose(this,'iQIYI')"><span>🎞️</span>iQIYI</div>
+<div class="platform" onclick="choose(this,'Other')"><span>🌍</span>Other</div>
+</div>
+</div>
+
+<div class="card">
+<h3>🔗 បញ្ចូល Video Link</h3>
+<input id="videoUrl" type="url"
+placeholder="Paste your video link here...">
+<button onclick="processLink()">📥 ពិនិត្យ និងបន្ត</button>
+<div id="message">
+សូមបញ្ចូល Link វីដេអូរបស់អ្នក។
+</div>
+</div>
+
+<div class="card">
+<h3>📱 របៀបប្រើប្រាស់</h3>
+<p class="note">
+១. ជ្រើសរើសកម្មវិធី។<br>
+២. Copy Link វីដេអូ។<br>
+៣. Paste Link នៅខាងលើ។<br>
+៤. ចុចប៊ូតុងពិនិត្យ និងបន្ត។
+</p>
+</div>
+
+<div class="footer">
+© 2026 KH VIDEO DOWNLOADER
+<br>Simple • Fast • Mobile Friendly
+</div>
+
+</div>
+
+<script>
+let selectedPlatform="Facebook";
+
+function choose(el,name){
+ document.querySelectorAll('.platform')
+ .forEach(p=>p.classList.remove('active'));
+ el.classList.add('active');
+ selectedPlatform=name;
+ document.getElementById('message').textContent=
+ "បានជ្រើសរើស "+name+" រួចរាល់។";
+}
+
+function processLink(){
+ const input=document.getElementById('videoUrl');
+ const message=document.getElementById('message');
+ const value=input.value.trim();
+
+ if(!value){
+ message.textContent="⚠️ សូមបញ្ចូល Link ជាមុនសិន។";
+ return;
+ }
+
+ let url;
+ try{
+ url=new URL(value);
+ if(!['http:','https:'].includes(url.protocol)) throw Error();
+ }catch(e){
+ message.textContent="⚠️ Link មិនត្រឹមត្រូវទេ។";
+ return;
+ }
+
+ const direct=/\.(mp4|webm|mov|m4v)(\?.*)?$/i.test(url.href);
+
+ if(direct){
+ message.innerHTML=
+ "✅ រកឃើញ Link ឯកសារវីដេអូផ្ទាល់។<br>"+
+ "<a id='downloadLink' style='color:#36d5ff' "+
+ "href='"+url.href.replace(/&/g,'&amp;')+
+ "' download>📥 ចុចទីនេះដើម្បីទាញយកឯកសារ</a><br>"+
+ "ចំណាំ៖ ការទាញយកអាស្រ័យលើការអនុញ្ញាតពីម៉ាស៊ីនមេ។";
+ return;
+ }
+
+ const sites={
+ Facebook:"https://www.facebook.com/",
+ TikTok:"https://www.tiktok.com/",
+ YouTube:"https://www.youtube.com/",
+ Telegram:"https://web.telegram.org/",
+ Netflix:"https://www.netflix.com/",
+ WeTV:"https://wetv.vip/",
+ iQIYI:"https://www.iq.com/",
+ Other:url.origin
+ };
+
+ message.innerHTML=
+ "ℹ️ Link ត្រូវបានទទួល។<br>"+
+ "កម្មវិធី៖ "+selectedPlatform+"<br>"+
+ "ដើម្បីរក្សាទុក សូមប្រើមុខងារ Download ឬ Offline ផ្លូវការរបស់កម្មវិធី។<br>"+
+ "<button style='margin-top:12px' onclick='openPlatform()'>បើកកម្មវិធី</button>";
+}
+
+function openPlatform(){
+ const sites={
+ Facebook:"https://www.facebook.com/",
+ TikTok:"https://www.tiktok.com/",
+ YouTube:"https://www.youtube.com/",
+ Telegram:"https://web.telegram.org/",
+ Netflix:"https://www.netflix.com/",
+ WeTV:"https://wetv.vip/",
+ iQIYI:"https://www.iq.com/",
+ Other:document.getElementById('videoUrl').value
+ };
+ window.open(sites[selectedPlatform],"_blank");
+}
+</script>
+</body>
+</html>
+
