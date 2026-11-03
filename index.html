@@ -98,9 +98,12 @@ const downloadArea=document.getElementById("downloadArea");
 document.getElementById("paste").onclick=async()=>{
  try{
   urlInput.value=await navigator.clipboard.readText();
-  result.textContent="បាន Paste Link រួចរាល់។";
- }catch(e){
-  result.textContent="សូមចុចក្នុងប្រអប់ Link ហើយ Paste ដោយដៃ។";
+  result.textContent="បាន Paste Link រួចរាល់";
+  document.getElementById("check").click();
+}catch(e){
+  result.textContent="សូមអនុញ្ញាត Clipboard ឬ Paste ដោយដៃ";
+}
+  
  }
 };
 
