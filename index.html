@@ -120,20 +120,26 @@ function saveHistory(value){
 }
 
 function showHistory(){
- const area=document.getElementById("history");
- area.replaceChildren();
- const list=getHistory();
- if(!list.length){
-  area.textContent="មិនទាន់មានប្រវត្តិទេ។";
-  return;
- }
- list.forEach(item=>{
-  const div=document.createElement("div");
-  div.className="item";
-  div.textContent="📥 "+item.platform+" — "+item.url;
-  area.appendChild(div);
- });
+  const area=document.getElementById("history");
+  area.replaceChildren();
+  const list=getHistory();
+
+  if(!list.length){
+    area.textContent="មិនទាន់មានប្រវត្តិទេ";
+    return;
+  }
+
+  list.forEach(item=>{
+    const link=document.createElement("a");
+    link.className="item";
+    link.href=item.url;
+    link.target="_blank";
+    link.rel="noopener noreferrer";
+    link.textContent="⬇️ "+item.platform+" — "+item.url;
+    area.appendChild(link);
+  });
 }
+ 
 
 document.getElementById("check").onclick=()=>{
  const value=urlInput.value.trim();
