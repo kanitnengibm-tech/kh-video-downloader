@@ -3,175 +3,206 @@
 <html lang="km">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KH VIDEO DOWNLOADER</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;background:#081426;color:white;
- font-family:Arial,sans-serif;padding:22px 16px;
-}
+body{margin:0;background:#071326;color:white;font-family:Arial,sans-serif;padding:18px}
 .app{max-width:480px;margin:auto}
-.logo{text-align:center;padding:25px 0}
-.logo-icon{font-size:55px}
-h1{font-size:25px;color:#36d5ff;margin:8px 0}
-.sub{color:#9aabc1;font-size:13px}
-.card{
- background:#14243b;border:1px solid #263d59;
- border-radius:18px;padding:20px;margin-bottom:17px;
-}
-h3{font-size:16px}
-.platforms{
- display:grid;grid-template-columns:repeat(4,1fr);gap:9px;
-}
-.platform{
- background:#203650;border:1px solid #36506c;
- border-radius:12px;padding:13px 3px;color:white;
- text-align:center;font-size:12px;cursor:pointer;
-}
-.platform.active{border:2px solid #31d5ff;background:#124563}
-.platform span{display:block;font-size:23px;margin-bottom:6px}
-input{
- width:100%;padding:16px;border-radius:12px;
- border:1px solid #52657d;background:#081426;
- color:white;font-size:14px;margin:10px 0;
-}
-button{
- width:100%;padding:16px;border:0;border-radius:12px;
- background:linear-gradient(90deg,#087cf5,#20d3e9);
- color:white;font-weight:bold;font-size:16px;
- cursor:pointer;
-}
-button:disabled{opacity:.5}
-#message{font-size:13px;line-height:1.7;color:#b8d8ed;margin-top:14px}
-.note{font-size:12px;color:#9aabc1;line-height:1.7}
-.footer{text-align:center;color:#71859f;font-size:12px;padding:20px}
+header{text-align:center;padding:25px 0}
+header .icon{font-size:55px}
+h1{color:#30d5ff;font-size:24px}
+.sub{color:#9eafc5;font-size:13px}
+.card{background:#14253d;border:1px solid #304763;border-radius:18px;padding:18px;margin-bottom:18px}
+h3{font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.platform{background:#203650;border:1px solid #405875;border-radius:12px;padding:12px 2px;color:white;text-align:center;font-size:12px}
+.platform.active{border:2px solid #30d5ff;background:#124563}
+.platform span{display:block;font-size:23px;margin-bottom:7px}
+input{width:100%;padding:16px;border-radius:12px;border:1px solid #506781;background:#071326;color:white;font-size:14px;margin:8px 0}
+button,.btn{display:block;width:100%;padding:15px;border:0;border-radius:12px;background:linear-gradient(90deg,#087cf5,#20d3e9);color:white;font-weight:bold;font-size:15px;text-align:center;margin-top:10px;text-decoration:none;cursor:pointer}
+.secondary{background:#263d59}
+video{width:100%;border-radius:12px;margin-top:12px;background:black}
+#result{font-size:14px;line-height:1.7;color:#c8e5f5;margin-top:12px;overflow-wrap:anywhere}
+.item{background:#203650;padding:12px;border-radius:10px;margin-top:9px;font-size:12px;overflow-wrap:anywhere}
+.small{font-size:12px;color:#9eafc5;line-height:1.7}
+footer{text-align:center;color:#8195ad;font-size:12px;padding:20px}
 </style>
 </head>
 <body>
 <div class="app">
 
-<div class="logo">
-<div class="logo-icon">📥</div>
+<header>
+<div class="icon">📥</div>
 <h1>KH VIDEO DOWNLOADER</h1>
 <div class="sub">YOUR VIDEO & MEDIA CENTER</div>
-</div>
+</header>
 
 <div class="card">
 <h3>🌐 ជ្រើសរើសកម្មវិធី</h3>
-<div class="platforms">
-<div class="platform active" onclick="choose(this,'Facebook')"><span>📘</span>Facebook</div>
-<div class="platform" onclick="choose(this,'TikTok')"><span>🎵</span>TikTok</div>
-<div class="platform" onclick="choose(this,'YouTube')"><span>▶️</span>YouTube</div>
-<div class="platform" onclick="choose(this,'Telegram')"><span>✈️</span>Telegram</div>
-<div class="platform" onclick="choose(this,'Netflix')"><span>🎬</span>Netflix</div>
-<div class="platform" onclick="choose(this,'WeTV')"><span>📺</span>WeTV</div>
-<div class="platform" onclick="choose(this,'iQIYI')"><span>🎞️</span>iQIYI</div>
-<div class="platform" onclick="choose(this,'Other')"><span>🌍</span>Other</div>
+<div class="grid">
+<div class="platform active" data-name="Facebook"><span>📘</span>Facebook</div>
+<div class="platform" data-name="TikTok"><span>🎵</span>TikTok</div>
+<div class="platform" data-name="YouTube"><span>▶️</span>YouTube</div>
+<div class="platform" data-name="Telegram"><span>✈️</span>Telegram</div>
+<div class="platform" data-name="Netflix"><span>🎬</span>Netflix</div>
+<div class="platform" data-name="WeTV"><span>📺</span>WeTV</div>
+<div class="platform" data-name="iQIYI"><span>🎞️</span>iQIYI</div>
+<div class="platform" data-name="Other"><span>🌍</span>Other</div>
 </div>
 </div>
 
 <div class="card">
 <h3>🔗 បញ្ចូល Video Link</h3>
-<input id="videoUrl" type="url"
-placeholder="Paste your video link here...">
-<button onclick="processLink()">📥 ពិនិត្យ និងបន្ត</button>
-<div id="message">
-សូមបញ្ចូល Link វីដេអូរបស់អ្នក។
-</div>
+<input id="url" type="url" placeholder="Paste video link here...">
+<button class="secondary" id="paste">📋 Paste Link</button>
+<button id="check">🔍 ពិនិត្យវីដេអូ</button>
+<div id="result">សូមបញ្ចូល Link វីដេអូរបស់អ្នក។</div>
+<div id="preview"></div>
+<div id="downloadArea"></div>
 </div>
 
 <div class="card">
-<h3>📱 របៀបប្រើប្រាស់</h3>
-<p class="note">
-១. ជ្រើសរើសកម្មវិធី។<br>
-២. Copy Link វីដេអូ។<br>
-៣. Paste Link នៅខាងលើ។<br>
-៤. ចុចប៊ូតុងពិនិត្យ និងបន្ត។
+<h3>📥 ប្រវត្តិ Download</h3>
+<div id="history" class="small">មិនទាន់មានប្រវត្តិទេ។</div>
+<button class="secondary" id="clear">🗑️ លុបប្រវត្តិ</button>
+</div>
+
+<div class="card">
+<h3>📌 ចំណាំ</h3>
+<p class="small">
+Tool នេះអាច Preview និងទាញយកឯកសារវីដេអូផ្ទាល់ដែលអាចចូលប្រើបាន។ វីដេអូពី YouTube, Facebook, TikTok, Netflix និងកម្មវិធីផ្សេងៗ ត្រូវប្រើមុខងារទាញយកផ្លូវការរបស់ប្រភព ប្រសិនបើមាន។ មិនអាចរំលង DRM ឬការការពារសិទ្ធិបានទេ។
 </p>
 </div>
 
-<div class="footer">
-© 2026 KH VIDEO DOWNLOADER
-<br>Simple • Fast • Mobile Friendly
-</div>
-
+<footer>© 2026 KH VIDEO DOWNLOADER</footer>
 </div>
 
 <script>
-let selectedPlatform="Facebook";
+let platform="Facebook";
+let videoSource="";
 
-function choose(el,name){
- document.querySelectorAll('.platform')
- .forEach(p=>p.classList.remove('active'));
- el.classList.add('active');
- selectedPlatform=name;
- document.getElementById('message').textContent=
- "បានជ្រើសរើស "+name+" រួចរាល់។";
+document.querySelectorAll(".platform").forEach(el=>{
+ el.addEventListener("click",()=>{
+  document.querySelectorAll(".platform").forEach(p=>p.classList.remove("active"));
+  el.classList.add("active");
+  platform=el.dataset.name;
+ });
+});
+
+const urlInput=document.getElementById("url");
+const result=document.getElementById("result");
+const preview=document.getElementById("preview");
+const downloadArea=document.getElementById("downloadArea");
+
+document.getElementById("paste").onclick=async()=>{
+ try{
+  urlInput.value=await navigator.clipboard.readText();
+  result.textContent="បាន Paste Link រួចរាល់។";
+ }catch(e){
+  result.textContent="សូមចុចក្នុងប្រអប់ Link ហើយ Paste ដោយដៃ។";
+ }
+};
+
+function getHistory(){
+ try{return JSON.parse(localStorage.getItem("khHistory")||"[]")}
+ catch(e){return []}
 }
 
-function processLink(){
- const input=document.getElementById('videoUrl');
- const message=document.getElementById('message');
- const value=input.value.trim();
+function saveHistory(value){
+ let list=getHistory();
+ list.unshift(value);
+ localStorage.setItem("khHistory",JSON.stringify(list.slice(0,10)));
+ showHistory();
+}
 
- if(!value){
- message.textContent="⚠️ សូមបញ្ចូល Link ជាមុនសិន។";
- return;
+function showHistory(){
+ const area=document.getElementById("history");
+ area.replaceChildren();
+ const list=getHistory();
+ if(!list.length){
+  area.textContent="មិនទាន់មានប្រវត្តិទេ។";
+  return;
  }
+ list.forEach(item=>{
+  const div=document.createElement("div");
+  div.className="item";
+  div.textContent="📥 "+item.platform+" — "+item.url;
+  area.appendChild(div);
+ });
+}
 
- let url;
+document.getElementById("check").onclick=()=>{
+ const value=urlInput.value.trim();
+ preview.replaceChildren();
+ downloadArea.replaceChildren();
+ videoSource="";
+
+ let parsed;
  try{
- url=new URL(value);
- if(!['http:','https:'].includes(url.protocol)) throw Error();
+  parsed=new URL(value);
+  if(!["http:","https:"].includes(parsed.protocol))throw Error();
  }catch(e){
- message.textContent="⚠️ Link មិនត្រឹមត្រូវទេ។";
- return;
+  result.textContent="⚠️ សូមបញ្ចូល Link ត្រឹមត្រូវ។";
+  return;
  }
 
- const direct=/\.(mp4|webm|mov|m4v)(\?.*)?$/i.test(url.href);
+ const direct=/\.(mp4|webm|mov|m4v)$/i.test(parsed.pathname);
 
  if(direct){
- message.innerHTML=
- "✅ រកឃើញ Link ឯកសារវីដេអូផ្ទាល់។<br>"+
- "<a id='downloadLink' style='color:#36d5ff' "+
- "href='"+url.href.replace(/&/g,'&amp;')+
- "' download>📥 ចុចទីនេះដើម្បីទាញយកឯកសារ</a><br>"+
- "ចំណាំ៖ ការទាញយកអាស្រ័យលើការអនុញ្ញាតពីម៉ាស៊ីនមេ។";
- return;
+  videoSource=parsed.href;
+  result.textContent="✅ រកឃើញ Link វីដេអូផ្ទាល់។";
+  
+  const player=document.createElement("video");
+  player.src=videoSource;
+  player.controls=true;
+  player.playsInline=true;
+  player.preload="metadata";
+  preview.appendChild(player);
+
+  const link=document.createElement("a");
+  link.className="btn";
+  link.href=videoSource;
+  link.download="KH-Video.mp4";
+  link.textContent="📥 Download Video";
+  link.addEventListener("click",()=>{
+   saveHistory({platform,url:value});
+  });
+  downloadArea.appendChild(link);
+
+ }else{
+  result.textContent=
+   "ℹ️ បានទទួល Link ពី "+platform+
+   "។ សូមប្រើមុខងារ Offline ឬ Download ផ្លូវការរបស់កម្មវិធីនេះ។";
+
+  const link=document.createElement("a");
+  const sites={
+   Facebook:"https://www.facebook.com/",
+   TikTok:"https://www.tiktok.com/",
+   YouTube:"https://www.youtube.com/",
+   Telegram:"https://web.telegram.org/",
+   Netflix:"https://www.netflix.com/",
+   WeTV:"https://wetv.vip/",
+   iQIYI:"https://www.iq.com/",
+   Other:parsed.origin
+  };
+  link.href=sites[platform];
+  link.target="_blank";
+  link.rel="noopener";
+  link.className="btn";
+  link.textContent="🌐 បើកកម្មវិធី "+platform;
+  downloadArea.appendChild(link);
  }
+};
 
- const sites={
- Facebook:"https://www.facebook.com/",
- TikTok:"https://www.tiktok.com/",
- YouTube:"https://www.youtube.com/",
- Telegram:"https://web.telegram.org/",
- Netflix:"https://www.netflix.com/",
- WeTV:"https://wetv.vip/",
- iQIYI:"https://www.iq.com/",
- Other:url.origin
- };
+document.getElementById("clear").onclick=()=>{
+ if(confirm("តើអ្នកចង់លុបប្រវត្តិទាំងអស់មែនទេ?")){
+  localStorage.removeItem("khHistory");
+  showHistory();
+ }
+};
 
- message.innerHTML=
- "ℹ️ Link ត្រូវបានទទួល។<br>"+
- "កម្មវិធី៖ "+selectedPlatform+"<br>"+
- "ដើម្បីរក្សាទុក សូមប្រើមុខងារ Download ឬ Offline ផ្លូវការរបស់កម្មវិធី។<br>"+
- "<button style='margin-top:12px' onclick='openPlatform()'>បើកកម្មវិធី</button>";
-}
-
-function openPlatform(){
- const sites={
- Facebook:"https://www.facebook.com/",
- TikTok:"https://www.tiktok.com/",
- YouTube:"https://www.youtube.com/",
- Telegram:"https://web.telegram.org/",
- Netflix:"https://www.netflix.com/",
- WeTV:"https://wetv.vip/",
- iQIYI:"https://www.iq.com/",
- Other:document.getElementById('videoUrl').value
- };
- window.open(sites[selectedPlatform],"_blank");
-}
+showHistory();
 </script>
 </body>
 </html>
