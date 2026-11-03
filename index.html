@@ -204,6 +204,45 @@ document.getElementById("clear").onclick=()=>{
 
 showHistory();
 </script>
+ 
+<div class="card" id="movieLibrary">
+<h3>🎬 Movie & Series Library</h3>
+<p class="small">ស្វែងរកភាពយន្ត និងរឿងភាគដែលមានសិទ្ធិមើល និងទាញយក។</p>
+
+<input id="movieSearch" type="search"
+placeholder="🔎 ស្វែងរកឈ្មោះរឿង...">
+
+<button id="searchMovies">🔍 ស្វែងរកភាពយន្ត</button>
+
+<button class="secondary" id="openArchive">
+🎞️ បើក Internet Archive Movies
+</button>
+
+<div id="movieMessage" class="small" style="margin-top:14px">
+ជ្រើសរើសរឿងដែលអ្នកចង់ស្វែងរក។
+</div>
+</div>
+
+<script>
+document.getElementById("searchMovies").onclick=()=>{
+ const q=document.getElementById("movieSearch").value.trim();
+ const msg=document.getElementById("movieMessage");
+
+ if(!q){
+  msg.textContent="សូមបញ្ចូលឈ្មោះរឿងជាមុនសិន។";
+  return;
+ }
+
+ const url="https://archive.org/search?query="+encodeURIComponent(q)+"%20AND%20mediatype%3A%28movies%29";
+ msg.textContent="កំពុងបើកលទ្ធផលស្វែងរក៖ "+q;
+ window.open(url,"_blank","noopener");
+};
+
+document.getElementById("openArchive").onclick=()=>{
+ window.open("https://archive.org/details/movies","_blank","noopener");
+};
+</script>
+ 
 </body>
 </html>
 
